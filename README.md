@@ -1,2 +1,3 @@
 # best_practices
-Best practices and notes for different programming languages
+
+A collection of best practices and notes for different programming languages.
