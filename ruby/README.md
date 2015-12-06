@@ -425,7 +425,7 @@ def some_method
   arr = Array.new(100000000)
   # Do some thing with arr
   # arr = nil would remove the reference, hence it will not be available anymore in the following block
-  
+
   doc.on_load do |d|
     # arr is still available in this block and will be hold until the block gets destroyed
     puts "Loaded!"
@@ -640,3 +640,21 @@ some.initialize_with_file('/path/to/definition.rb')
 
 - this approach allows a clean DSL specification without any instantiation of the SomeClass class
 - this approach can also be combined with `method_missing` to handle undefined methods
+
+## Tools
+
+### IRB
+
+IRB accepts custom inspectors during start up:
+
+```ruby
+$ irb -f --inspect yaml
+
+irb(main)> Person = Struct.new(:name, :age)
+=> --- !ruby/class 'Person'
+
+irb(main)> Person.new("Sebastian", 29)
+=> --- !ruby/struct:Person
+name: Sebastian
+age: 29
+```
