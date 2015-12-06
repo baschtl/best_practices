@@ -94,6 +94,42 @@ end
 
 - `===` is an alias of `kind_of?`, used for case statements
 
+## Struct
+
+Ways to create a struct:
+
+```ruby
+# Inheritance
+class Person < Struct.new(:name, :age)
+  def to_s
+    "#{name} - #{age}"
+  end
+end
+```
+This creates a new entry in the ancestor chain.
+
+```ruby
+# Block
+Person = Struct.new(:name, :age) do
+  def to_s
+    "#{name} - #{age}"
+  end
+end
+```
+With the block version you cannot create constants within `Person`. It will be a global one and not scoped.
+
+```ruby
+# Re-open
+Person = Struct.new(:name, :age)
+
+class Person
+  def to_s
+    "#{name} - #{age}"
+  end
+end
+```
+The re-open version circumvents both aforementioned issues.
+
 ## Classes
 
 ### Singleton methods
