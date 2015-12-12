@@ -1,5 +1,14 @@
 # git cheat sheet
 
+### Resources
+
+* [git-scm](http://git-scm.com)
+* [Github help](https://help.github.com/)
+* [git immersion](http://gitimmersion.com/lab_01.html)
+* [git ready](http://gitready.com)
+* [git cheat sheet](http://www.ndpsoftware.com/git-cheatsheet.html)
+
+
 ### Clone
 
 ```sh
@@ -112,6 +121,12 @@ git push <remote_name> <local_branch_name>:<remote_branch_name>
 
 # delete remote branch
 git push <remote_name> :<branch_name>
+
+# push current repo and check if submodules need pushing, too
+git push --recurse-submodules=check
+
+# push current repo and all submodules
+git push --recursive-submodules=on-demand
 ```
 
 ### Tags
@@ -144,6 +159,9 @@ git rebase --continue
 git rebase --skip
 # (3) abort rebase
 git rebase --abort
+
+# interactively alter commits on the same branch, replay to HEAD-3
+git rebase -i HEAD~3
 ```
 
 ### Diff
@@ -173,6 +191,45 @@ git diff <branch_name_1> <branch_name_2>
 
 # time-based diffs, cf. git log
 git diff --since=1.week.ago --until=1.minute.ago
+```
+
+### Stash
+
+```sh
+# stash changes onto the stash stack
+git stash save
+
+# only stash unstaged changes onto the stash stack
+git stash save --keep-index
+
+# also stash untracked changes onto the stash stack
+git stash save --include-untracked
+
+# apply first stash in the stack, does not drop it
+git stash apply
+
+# apply a certain stash in the stack
+git stash apply <stash_name>
+
+# list stashes on the stack
+# can be used with any options of git log
+git stash list
+
+# shows first stash on the stack
+# can be used with any options of git log
+git stash show
+
+# delete first stash in the stack
+git stash drop
+
+# delete all stashes in the stack
+git stash clear
+
+# runs apply and drop
+git stash pop
+
+# applies a stash to a newly created branch
+git stash branch <new_branch_name> <stash_name>
 ```
 
 ### Blame
@@ -213,7 +270,73 @@ git log --since=2015-01-01 --until=2015-12-10
 
 ```
 
-### Aliases
+### Reflog
+
+The reflog is useful if, for example, a commit was deleted with reset and need to be retrieved again. Note that it is a local log.
+
+```sh
+# show the local git reflog
+git reflog
+
+# reset the HEAD to a commit of the reflog
+git reset --hard <sha|shortname>
+
+# show high-detail reflog, useful if a branch was deleted mistakingly and needs to be retrieved again
+git log --walk-reflogs
+```
+
+### Purge
+
+```sh
+# go trough all commits and execute the specified command, e.g., 'rm -f passwords.txt'
+git filter-branch --tree-filter <command>
+
+# go trough all commits on all branches and execute the specified command
+git filter-branch --tree-filter <command> -- --all
+
+# go trough all commits in the staging area and execute the specified command, e.g., 'git rm --cached --ignore-unmatch passwords.txt'
+# will not check out code before applying the command, hence, it is faster than tree-filter
+git filter-branch --index-filter <command>
+
+# also delete empty commits
+git filter-branch --prune-empty -- --all
+```
+
+### Cherry pick
+
+```sh
+# pick a commit
+git cherry-pick <sha>
+
+# pick a commit and add source sha in commit message
+git cherry-pick -x <sha>
+
+# pick a commit and add cherry-picker in commit message
+git cherry-pick --signoff <sha>
+
+# pick a commit with different commit message
+git cherry-pick --edit <sha>
+
+# pick multiple commits and put changes in the staging area, useful when combining commit changes
+git cherry-pick --no-commit <sha1> <sha2>
+```
+
+### Submodules
+
+```sh
+# add submodule to the current repo, after this also commit and push
+git submodule add <repo_url>
+
+# initialize submodule(s) in a newly cloned project
+git submodule init
+
+# update the submodule(s), most likely necessary after an init
+git submodule update
+```
+
+### Configuration
+
+#### Aliases
 
 ```sh
 # create alias for git log, git mylog
@@ -226,4 +349,20 @@ git config --global alias.st status
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
+```
+
+
+#### Line endings
+
+```sh
+# can also be set on a per project basis in the git attributes file
+
+# change CR/LF (windows) to LF (Mac) on commit
+git config --global core-autocrlf input
+
+# change LF (mac) to CR/LF (windows) on checkout
+git config --global core-autocrlf true
+
+# switch off conversion
+git config --global core-autocrlf false
 ```
