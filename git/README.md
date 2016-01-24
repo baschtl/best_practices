@@ -1,5 +1,29 @@
 # git cheat sheet
 
+## Table of contents
+
+* [Resources](#resources)
+* [Clone](#clone)
+* [Checkout](#checkout)
+* [Reset](#reset)
+* [Commit](#commit)
+* [Remote](#remote)
+* [Branch](#branch)
+* [Merge](#merge)
+* [Rm](#rm)
+* [Push](#push)
+* [Tags](#tags)
+* [Rebase](#rebase)
+* [Diff](#diff)
+* [Stash](#stash)
+* [Blame](#blame)
+* [Log](#log)
+* [Reflog](#reflog)
+* [Purge](#purge)
+* [Cherry pick](#cherry-pick)
+* [Submodules](#submodules)
+* [Configuration](#configuration)
+
 ### Resources
 
 * [git-scm](http://git-scm.com)
@@ -7,7 +31,6 @@
 * [git immersion](http://gitimmersion.com/lab_01.html)
 * [git ready](http://gitready.com)
 * [git cheat sheet](http://www.ndpsoftware.com/git-cheatsheet.html)
-
 
 ### Clone
 
