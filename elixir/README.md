@@ -1,6 +1,7 @@
 # Best practices in Elixir
 
 ## Table of contents
+
 * [Basics](#basics)
   * [Collection types](#collection-types)
   * [Binaries](#binaries)

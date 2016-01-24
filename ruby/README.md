@@ -1,5 +1,16 @@
 # Best practices in Ruby
 
+## Table of contents
+
+* [String](#string)
+* [Regular Expressions](#regular-expressions)
+* [Struct](#struct)
+* [Classes](#classes)
+* [Modules](#modules)
+* [Blocks](#blocks)
+* [Metaprogramming](#metaprogramming)
+* [Tools](#tools)
+
 ## String
 
 ### In general
