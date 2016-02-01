@@ -7,6 +7,7 @@
   * [Binaries](#binaries)
   * [Truth](#truth)
   * [Operators](#operators)
+* [Anonymous functions](#anonymous-functions)
 
 ## Basics
 
@@ -87,3 +88,17 @@ my_map.name   # only if key is atom
 
 - `+ - * / div rem`
 - `/` returns floating point number, `div` returns integer
+
+## Anonymous functions
+
+### Example
+
+```
+times = fn (a, b) -> a * b end
+times.(2, 5)
+
+hello = fn -> IO.puts "Hello!" end
+hello.()
+```
+- the dot indicates the function call for an anonymous function
+- when arguments are passed to a function Elixir tries to match them to the parameters
