@@ -10,6 +10,7 @@
 * [Blocks](#blocks)
 * [Metaprogramming](#metaprogramming)
 * [Tools](#tools)
+* [Debugging](#debugging)
 
 ## String
 
@@ -705,3 +706,29 @@ irb(main)> Person.new("Sebastian", 29)
 name: Sebastian
 age: 29
 ```
+
+## Debugging
+
+### By hand
+
+- the caller of the this code: `caller`
+
+- the implementation source of a method: `method(:a_method_name).source_location`
+- the implicit implementation source of a method:
+```ruby
+tp = TracePoint.new(:call) do |x|
+  puts x
+end
+tp.enable
+# ... code to analyse
+tp.disable
+```
+
+- if a method calls `super` where does this call go: `method(:a_method_name).super_method.source_location`
+
+- to find out where an exception got raised:
+  - run the Ruby script with the `-d` flag: `bundle exec ruby -d script/rails runner my_script.rb`
+  - run an arbitrary command: `ruby -d -S rspec`
+  - to give every Ruby process the flag: `RUBYOPT=-d rspec`
+
+- to find out when an object is mutated: use `object.freeze` and look at the stack trace of the raised exception
