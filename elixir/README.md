@@ -102,3 +102,66 @@ hello.()
 ```
 - the dot indicates the function call for an anonymous function
 - when arguments are passed to a function Elixir tries to match them to the parameters
+
+### Different implementations on the same function
+
+```
+handle_open = fn
+  {:ok, file}  -> "Read data: #{IO.read(file, :line)}"    
+  {_,   error} -> "Error: #{:file.format_error(error)}"
+end
+
+# call it
+
+handle_open.(File.open("some_path_to_a_file"))
+```
+
+- depending on the result of `File.open()` the function `handle_open` reads the first line of the file or outputs an error message
+- `:file` refers to the Erlang `File` module that can be called through Elixir
+
+### Nesting functions
+
+```
+fun1 = fn ->
+          fn ->
+             "Called!"
+          end
+       end
+
+# call it
+
+fun1.().()
+```
+
+### Remembering of the original environment (closures)
+
+```
+fun1 = fn name ->
+          fn ->
+             "Called #{name}!"
+          end
+       end
+
+# call it
+
+caller = fun1.("Sebastian")
+caller.()
+"Called Sebastian!"
+```
+
+- the scope defined by the outer function is inherited by the inner function it encloses
+- this also works when the inner function itself defines a parameter:
+
+```
+fun1 = fn name ->
+          fn by ->
+             "Called #{name} by #{by}!"
+          end
+       end
+
+# call it
+
+caller = fun1.("Sebastian")
+caller.("Mark")
+"Called Sebastian by Mark!"
+```
