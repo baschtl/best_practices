@@ -165,3 +165,51 @@ caller = fun1.("Sebastian")
 caller.("Mark")
 "Called Sebastian by Mark!"
 ```
+
+### Functions as arguments
+
+```
+times_3 = fn n -> n * 3 end
+apply = fn (fun, value) -> fun.(value) end
+
+apply.(times_3, 5)
+```
+
+### & notation
+
+`&()` is a shortcut to define an anonymous function.
+
+```
+times_3 = &(&1 * 3)
+apply = &(&1.(&2))
+
+apply.(times_3, 5)
+```
+
+- elixir recognizes calls to a named function and optimizes the anonymous function away if the arity matches:
+
+```
+hello = &(IO.puts(&1))
+&IO.puts/1
+```
+
+- if used with an underlying Erlang function elixir directly maps onto the Erlang function:
+
+```
+&abs(&1)
+&:erlang.abs/1
+```
+
+- lists and tuples can also be turned into functions as `[]` and `{}` are operators:
+
+```
+divrem = &{ div(&1, &2), rem(&1, &2) }
+divrem.(5, 10)
+```
+
+- `&` can also be used to wrap existing functions when giving it its arity:
+
+```
+d = &div/2
+d.(5, 10)
+```
