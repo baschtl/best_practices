@@ -55,9 +55,11 @@
 
 ### Equality
 
+[This article](https://mauricio.github.io/2011/05/30/ruby-basics-equality-operators-ruby.html) gives a good overview.
+
 - there is `eql?`, `equal?`, `==` and `===`
 - `equal?` (comes from Object):
-  - object equality (i.e., objects with the same are equal)
+  - object equality (i.e., objects with the same hash key are equal)
 -  `==`:
   - defaults to `equal?`
 - `===`:
