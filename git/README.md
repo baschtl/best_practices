@@ -10,13 +10,14 @@
 * [Remote](#remote)
 * [Branch](#branch)
 * [Merge](#merge)
-* [Rm](#rm)
+* [Remove](#remove)
 * [Push](#push)
 * [Tags](#tags)
 * [Rebase](#rebase)
 * [Diff](#diff)
 * [Stash](#stash)
 * [Blame](#blame)
+* [List files](#list-files)
 * [Log](#log)
 * [Reflog](#reflog)
 * [Purge](#purge)
@@ -123,11 +124,21 @@ git branch -D <local_branch_name>
 git merge <branch_name>
 ```
 
-### Rm
+### Remove
 
 ```sh
+# remove file from working directory and stages the deletion
+git rm <file_name>
+
 # stop tracking a file
 git rm --cached <file_name>
+```
+
+### Move
+
+```sh
+# renames a file
+git mv <original_file_name> <new_file_name>
 ```
 
 ### Push
@@ -263,9 +274,19 @@ git blame <file_name> --date=short
 
 ```
 
+### List files
+
+```sh
+# list all ignored files
+git ls-files --other --ignored --exclude-standard
+```
+
 ### Log
 
 ```sh
+# show version history of a file
+git log --follow <file_name>
+
 # show log as one liners
 git log --pretty=oneline
 
@@ -359,6 +380,14 @@ git submodule update
 
 ### Configuration
 
+```sh
+# sets the name that is used for commit messages
+git config --global user.name "[name]"
+
+# enables colorization of command line output
+git config --global color.ui auto
+```
+
 #### Aliases
 
 ```sh
@@ -373,7 +402,6 @@ git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
 ```
-
 
 #### Line endings
 
