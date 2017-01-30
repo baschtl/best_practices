@@ -42,9 +42,13 @@
 
 ### In general
 
-- `=\~`
+- `=~`
   - returns a number (i.e., the index where the first match was found) or
   - nil (i.e., if no match was found)
+
+- `!~`
+  - uses `=~` for matching
+  - returns true if two objects don't match, otherwise false
 
 ### Matching
 
