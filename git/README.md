@@ -122,6 +122,11 @@ git branch -D <local_branch_name>
 ```sh
 # merge a branch into the current one
 git merge <branch_name>
+
+# Squash the commits of a branch into a single commit and merge it into a stable branch
+git checkout <stable_branch_name>
+git merge --squash <branch_name>
+git commit -m "squash branch_name"
 ```
 
 ### Remove
