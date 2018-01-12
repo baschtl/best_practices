@@ -573,6 +573,23 @@ end
 
 - `alias_method` can be used to copy (!) a method definition and to give it a different name
 - this comes in handy if you overwrite an existing method but still need its original behavior
+- alternatively, use `alias_method_chain`, it is encouraged to use `prepend` though:
+
+```ruby
+module Solaris
+  def self.included(base)
+    base.prepend(Extensions)
+  end
+
+  module Extensions
+    def do_something(*args)
+      with_logging do
+        super
+      end
+    end
+  end
+end
+```
 
 ### Self-Modifying classes
 
